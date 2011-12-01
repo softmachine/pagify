@@ -13,5 +13,12 @@ gem "jquery-rails"
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+gem 'mercury-rails', :git => 'https://github.com/jejacks0n/mercury.git'
+
+platform :ruby do
+  gem 'less-rails'
+end
+
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

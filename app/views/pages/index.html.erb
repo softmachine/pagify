@@ -1,0 +1,33 @@
+<h2>List of pages</h2>
+
+<table>
+  <thead>
+      <tr>
+        <th>Name</th>
+        <th>Title</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+  </thead>
+
+  <tbody>
+     <% @pages.each do |page| %>
+        <tr>
+          <td><%= page.name %></td>
+          <td><%= page.title%></td>
+          <td><%= link_to 'Show', page_path(page.name) %></td>
+          <td><%= link_to 'Edit', edit_page_path((page.name)) %></td>
+          <td><%= link_to 'Delete', page_path(page.name), :confirm => 'Are you sure?', :method => :delete%></td>
+        </tr>
+     <% end %>
+  </tbody>
+</table>
+
+<div>
+  <ul>
+    <li><%= link_to "New Page", new_page_path%></li>
+  </ul>
+</div>
+
+

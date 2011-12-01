@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dummy</title>
+  <title>Pagyfy Testbed Application</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -9,6 +9,10 @@
 <body>
 
 <%= yield %>
+<hr>
+<div>
+  <%=link_to "Home", root_path%>
+</div>
 
 </body>
 </html>
