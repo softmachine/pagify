@@ -2,7 +2,11 @@ Dummy::Application.routes.draw do
 
   root :to => "home#index"
 
-  Pagify::Router.routes
+  match "/miu" => 'pagify_pages#show', :defaults => { :id => 'oida' }
+
+  Pagify::Router.page "/hondashi", "hondashi"
+  Pagify::Router.page "/about", "oida"
+  Pagify::Router.routes "/pages"
 
 
   # The priority is based upon order of creation:

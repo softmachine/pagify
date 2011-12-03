@@ -1,0 +1,24 @@
+<section id="edit-page">
+  <% if @edit %>
+    <%= javascript_tag do %>
+      window.mercuryLoaded = function() {
+        Mercury.saveURL = '<%= pagify_page_path(@page.name) %>'
+        $(window).bind('mercury:saved', function() {
+            window.location = window.location.href = '<%= request.referer || pagify_page_path(@page.name) %>'
+        });
+      }
+    <% end %>
+
+    <%= javascript_include_tag 'mercury_loader.js?saveStyle=form&saveMethod=PUT'%>
+  <% end %>
+
+
+  <p>page edit mode</p>
+  <hr>
+  <div class="page-header">
+    <h1><span id="page_title" class="mercury-region" data-type="editable"><%= raw @page.title %></span></h1>
+  </div>
+  <div id="page_content" class="mercury-region" data-type="editable">
+    <%= raw @page.content %>
+  </div>
+</section>

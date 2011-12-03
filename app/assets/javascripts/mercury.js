@@ -50,7 +50,7 @@
  */
 window.Mercury = {
 
-  // # Mercury Configuration
+  // # Mercury Pagify Configuration
   config: {
     // ## Toolbars
     //

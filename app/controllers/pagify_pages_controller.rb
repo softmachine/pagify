@@ -1,21 +1,17 @@
-class PagesController < ApplicationController
+class PagifyPagesController < ApplicationController
 
   def index
     @pages = Page.all
   end
 
+  def edit
+    @edit = true
+    render_page params
+  end
+
   def show
-    pageid = params[:id]
-    logger.info "attempt to render page #{pageid}"
-
-    @page = Page.find_by_name(pageid)
-    if (!@page && pageid == 'default')
-      logger.warn "no 'default' is currently defined !"
-      page_not_found
-    end
-    logger.debug "non-existing page '#{pageid}': redirect to default page"
-    redirect_to pages_path('default') unless @page
-
+    @edit = false
+    render_page params
   end
 
   def update
@@ -48,7 +44,7 @@ class PagesController < ApplicationController
     page.content = "your content here..."
     page.save
 
-    redirect_to mercury_editor_path+page_path(pageid)
+    redirect_to edit_page_path(pageid)
   end
 
   def destroy
@@ -76,5 +72,20 @@ protected
   def page_not_found
     raise ActionController::RoutingError.new('Page Not Found')
   end
+
+  def render_page(params)
+    pageid = params[:id]
+    action ||= :show
+    logger.info "attempt to render page #{pageid}"
+
+    @page = Page.find_by_name(pageid)
+    if (!@page && pageid == 'default')
+      logger.warn "no 'default' is currently defined !"
+      page_not_found
+    end
+    logger.debug "non-existing page '#{pageid}': redirect to default page"
+    redirect_to pages_path('default') unless @page
+  end
+
 
 end

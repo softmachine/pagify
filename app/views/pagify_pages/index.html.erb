@@ -16,9 +16,9 @@
         <tr>
           <td><%= page.name %></td>
           <td><%= page.title%></td>
-          <td><%= link_to 'Show', page_path(page.name) %></td>
-          <td><%= link_to 'Edit', edit_page_path((page.name)) %></td>
-          <td><%= link_to 'Delete', page_path(page.name), :confirm => 'Are you sure?', :method => :delete%></td>
+          <td><%= link_to 'Show', pagify_page_path(page.name) %></td>
+          <td><%= link_to 'Edit', edit_pagify_page_path((page.name)) %></td>
+          <td><%= link_to 'Delete', pagify_page_path(page.name), :confirm => 'Srsly, Mate?', :method => :delete%></td>
         </tr>
      <% end %>
   </tbody>
@@ -26,7 +26,7 @@
 
 <div>
   <ul>
-    <li><%= link_to "New Page", new_page_path%></li>
+    <li><%= link_to "New Page", new_pagify_page_path%></li>
   </ul>
 </div>
 

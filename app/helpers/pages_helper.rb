@@ -1,9 +1,5 @@
 module PagesHelper
 
-  def edit_page_path(name)
-    mercury_editor_path + page_path(name)
-  end
-
   def pages_list ()
     each_page do |page|
       content_tag (:li) do
