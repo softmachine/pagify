@@ -1,0 +1,2 @@
+module Pagify::PagesHelper
+end

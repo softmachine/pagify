@@ -2,7 +2,7 @@ Dummy::Application.routes.draw do
 
   root :to => "home#index"
 
-  match "/miu" => 'pagify_pages#show', :defaults => { :id => 'oida' }
+  match "/miu" => 'pagify/pages#show', :defaults => { :id => 'oida' }
 
   Pagify::Router.page "/hondashi", "hondashi"
   Pagify::Router.page "/about", "oida"

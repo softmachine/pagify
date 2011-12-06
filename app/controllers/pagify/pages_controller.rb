@@ -1,7 +1,8 @@
-class PagifyPagesController < ApplicationController
+class Pagify::PagesController < ApplicationController
+  protect_from_forgery
 
   def index
-    @pages = Page.all
+    @pages = Pagify::Page.all
   end
 
   def edit
@@ -18,7 +19,7 @@ class PagifyPagesController < ApplicationController
     pageid = params[:id]
     logger.info "attempt to update page #{pageid}"
     #raise "Unauthorized Access" unless user_signed_in?
-    page = Page.find_by_name(pageid)
+    page = Pagify::Page.find_by_name(pageid)
 
     logger.info "editor_path: " + mercury_editor_path
 
@@ -32,34 +33,34 @@ class PagifyPagesController < ApplicationController
 
   def new
     logger.info "attempt to create a new page"
-    @page = Page.new
+    @page = Pagify::Page.new
   end
 
   def create
-    pageid = params[:page][:name]
+    pageid = params[:pagify_page][:name]
 
-    page = Page.new
+    page = Pagify::Page.new
     page.name = pageid
     page.title = "#{pageid} page"
     page.content = "your content here..."
     page.save
 
-    redirect_to edit_page_path(pageid)
+    redirect_to edit_pagify_page_path(pageid)
   end
 
   def destroy
     pageid = params[:id]
     logger.info "attempt to delete page #{pageid}"
 
-    page = Page.find_by_name(pageid)
+    page = Pagify::Page.find_by_name(pageid)
     page.delete if page
     logger.info "page #{pageid} deleted"
 
-    redirect_to root_path
+    redirect_to pagify_pages_path
   end
 
   def mercury_update
-    page = Page.find(params[:id])
+    page = Pagify::Page.find(params[:id])
     page.title = params[:content][:title][:value]
     page.content = params[:content][:content][:value]
     page.save!
@@ -78,14 +79,12 @@ protected
     action ||= :show
     logger.info "attempt to render page #{pageid}"
 
-    @page = Page.find_by_name(pageid)
-    if (!@page && pageid == 'default')
+    @page = Pagify::Page.find_by_name(pageid)
+    if !@page && pageid == 'default'
       logger.warn "no 'default' is currently defined !"
       page_not_found
     end
     logger.debug "non-existing page '#{pageid}': redirect to default page"
-    redirect_to pages_path('default') unless @page
+    redirect_to pagify_pages_path(:default) unless @page
   end
-
-
 end
