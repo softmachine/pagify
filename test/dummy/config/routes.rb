@@ -6,8 +6,10 @@ Dummy::Application.routes.draw do
 
   Pagify::Router.page "/hondashi", "hondashi"
   Pagify::Router.page "/about", "oida"
-  Pagify::Router.routes "/pages"
 
+  Pagify::Router.show_routes "/content"
+
+  Pagify::Router.routes "/admin/pages"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

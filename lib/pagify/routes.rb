@@ -1,20 +1,19 @@
 module Pagify
   class Router
-    def self.routes(path='/pages')
-      Rails.application.routes.draw do
+    def self.routes(map, path='/pages')
         Mercury::Engine.routes
-        scope :module => 'pagify' do
-          resources :pages, :as => :pagify_pages, :path => path
-        end
-      end
+        map.resources :pages, :as => :pagify_pages, :path => path, :controller => 'pagify/pages'
     end
 
-    def self.page(path, pagename)
-      Rails.application.routes.draw do
-          match path => 'pagify/pages#show', :defaults => { :id => pagename}
-      end
+    def self.show_routes(map, path='/pages')
+      Mercury::Engine.routes
+      map.resources :pages, :as => :pagify_show_pages, :path => path, :controller => 'pagify/pages', :only => [:show]
     end
 
 
+    def self.page(map, path, pagename)
+      name = "#{pagename}_page"
+      map.match path => 'pagify/pages#show', :as => name, :defaults => { :id => pagename}
+    end
   end
 end
