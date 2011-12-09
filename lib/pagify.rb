@@ -6,17 +6,29 @@ module Pagify
     @@page_title = "Pagify"
     cattr_accessor :page_title
 
-    @@authorize = nil
-    cattr_accessor :authorize
+    @@authorizer= nil
+    cattr_reader :authorizer
+    def self.authorize(&blk)
+      @@authorizer = blk
+    end
 
-    @@authorize_show = lambda{ |page| true }
-    cattr_accessor :authorize_show
+    @@show_authorizer = Proc.new { |page| true }
+    cattr_reader :show_authorizer
+    def self.authorize_show(&blk)
+      @@show_authorizer = blk
+    end
 
-    @@authorize_modify = lambda{ |page| instance_exec(page, &@@authorize)}
-    cattr_accessor :authorize_modify
+    @@modify_authorizer = Proc.new { |page| instance_exec(page, &@@authorizer)}
+    cattr_reader :modify_authorizer
+    def self.authorize_modify(&blk)
+      @@modify_authorizer = blk
+    end
 
-    @@authorize_create = lambda{ |page| instance_exec(page, &@@authorize)}
-    cattr_accessor :authorize_create
+    @@create_authorizer = lambda{ |page| instance_exec(page, &@@authorizer)}
+    cattr_reader :create_authorizer
+    def self.authorize_create(&blk)
+      @@create_authorizer = blk
+    end
 
   end
 
