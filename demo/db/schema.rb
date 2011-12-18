@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111207091603) do
+ActiveRecord::Schema.define(:version => 20111209142022) do
+
+  create_table "pagify_categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pagify_categorizations", :force => true do |t|
+    t.integer  "page_id"
+    t.integer  "category_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pagify_pages", :force => true do |t|
     t.string   "name"

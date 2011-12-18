@@ -1,5 +1,6 @@
 require "pagify/engine"
 require "pagify/routes"
+require "pagify/controller"
 
 module Pagify
   class Config

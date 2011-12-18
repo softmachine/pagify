@@ -1,0 +1,26 @@
+<h1>Listing pagify_categorizations</h1>
+
+<table>
+  <tr>
+    <th>Page</th>
+    <th>Category</th>
+    <th>Position</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pagify_categorizations.each do |pagify_categorization| %>
+  <tr>
+    <td><%= pagify_categorization.page.name %></td>
+    <td><%= pagify_categorization.category.name %></td>
+    <td><%= pagify_categorization.position %></td>
+    <td><%= link_to 'Edit', edit_pagify_categorization_path(pagify_categorization)%></td>
+    <td><%= link_to 'Destroy', pagify_categorization, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Categorization', new_pagify_categorization_path %>

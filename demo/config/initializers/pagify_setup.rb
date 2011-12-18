@@ -7,7 +7,7 @@ Pagify.setup do |config|
   end
 
   config.authorize_create do |page|
-    raise "New Page Creation is not allowed here" unless page.name.start_with? "mike"
+    #raise "New Page Creation is not allowed here" unless page.name.start_with? "mike"
     true
   end
 

@@ -1,0 +1,33 @@
+<h1>Add category to page <%= @page.name %></h1>
+
+<div id="main">
+<%= form_for(@pagify_categorization) do |f| %>
+  <% if @pagify_categorization.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pagify_categorization.errors.count, "error") %> prohibited this pagify_categorization from being saved:</h2>
+
+      <ul>
+      <% @pagify_categorization.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :page_id %>
+  <div class="field">
+      <%= collection_select(:pagify_categorization, :category_id, @candidate_categories, :id, :name) %>
+  </div>
+  <div class="field">
+    <%= f.label :position %><br />
+    <%= f.number_field :position, :size => 1 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'add Category'%>
+  </div>
+<% end %>
+</div>
+
+<div id="context">
+</div>

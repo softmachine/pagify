@@ -1,0 +1,22 @@
+<h1>New category</h1>
+
+<div id="main">
+  <%= render 'form_errors' %>
+  <%= form_for(@category) do |f| %>
+    <h3>Category Details</h3>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <hr>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+
+<div id="context">
+    <ul>
+        <li><%= link_to 'back', :back %></li>
+    </ul>
+</div>

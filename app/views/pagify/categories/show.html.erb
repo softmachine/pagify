@@ -1,0 +1,35 @@
+<h1>Category <%= @category.name %></h1>
+
+<div id="main">
+  <h3>Properties</h3>
+  <p>
+    <b>Name:</b>
+    <%= @category.name %>
+  </p>
+
+  <h3>Pages</h3>
+  <table>
+      <thead>
+      <tr>
+          <th>Name</th>
+          <th>Title</th>
+          <th></th>
+      </tr>
+      </thead>
+      <tbody>
+       <% for page in @category.pages %><tr>
+          <td><%= link_to page.name, pagify_page_path(page.name) %> </td>
+          <td><%= page.title %></td>
+      </tr>
+      <% end %>
+      </tbody>
+  </table>
+</div>
+
+<div id="context">
+    <ul>
+        <li><%= link_to 'add Page', new_pagify_category_pagify_page_path(@category) %></li>
+        <li><%= link_to 'show Pages', pagify_category_pagify_pages_path(@category)  %></li>
+        <li><%= link_to 'back', :back%></li>
+    </ul>
+</div>

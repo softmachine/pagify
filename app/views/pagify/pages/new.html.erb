@@ -1,25 +1,17 @@
-<section id="page_create">
-  <div class="page-header">
-    <h1>Create new Page</h1>
+<section id="pagify-pages">
+  <h1>New Page</h1>
+
+  <div id="main">
+    <%=render 'form_errors' %>
+    <%= form_for @page do |f|  %>
+            <%= f.text_field :name%>
+            <%= f.submit 'Create Page'%>
+    <% end %>
   </div>
-  <div class="row">
-    <div class="span4 columns">
-      <!--<h3>Default styles</h3>-->
-      <p>Enter the name of the new page.</p>
-      <p>The page name is subsequently used to identify the page as part of the page url.</p>
-    </div>
 
-    <div class="span12 columns">
-      <%= form_for @page do |f|  %>
-              <%= f.text_field :name%>
-              <%= f.submit 'Create'%>
-              <%= button_tag  'Cancel', :type => 'reset', :class => 'btn'%>
-      <% end %>
-    </div>
-
-  </div><!-- /row -->
-
-  <br>
-
-
+  <div id="context">
+      <ul>
+          <li><%= link_to 'Back', :back%></li>
+      </ul>
+  </div>
 </section>
