@@ -6,4 +6,6 @@ class CreatePagifyCategories < ActiveRecord::Migration
       t.timestamps
     end
   end
+  add_index :pagify_categories, :name, :unique => true
+
 end

@@ -1,0 +1,37 @@
+    <h1>Add Page to Category <%= @category.name %></h1>
+  </div>
+  <div class="row">
+    <div class="span4 columns">
+      <!--<h3>Default styles</h3>-->
+      <p>Choose an existing page to add to the category.</p>
+    </div>
+
+    <div class="span12 columns">
+      <%= form_for(@pagify_categorization) do |f|  %>
+          <% if @pagify_categorization.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@pagify_categorization.errors.count, "error") %> prohibited this pagify_categorization from being saved:</h2>
+              <ul>
+              <% @pagify_categorization.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= f.hidden_field :category_id %>
+          <div class="field">
+              <%= collection_select(:pagify_categorization, :page_id, @candidate_pages, :id, :name) %>
+          </div>
+          <div class="field">
+              <%= f.label :position %><br />
+              <%= f.number_field :position, :size => 1 %>
+            </div>
+
+          <div class="actions">
+            <%= f.submit 'add Page'%>
+          </div>
+      <% end %>
+    </div>
+
+  </div><!-- /row -->

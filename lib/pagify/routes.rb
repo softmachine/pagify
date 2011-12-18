@@ -2,9 +2,16 @@ module Pagify
   class Router
     def self.routes(map, path='/pages')
         Mercury::Engine.routes
-        map.resources :pages, :as => :pagify_pages, :path => path, :controller => 'pagify/pages'
-        map.resources :categories, :as => :pagify_categories, :controller => 'pagify/categories'
 
+        map.resources :pages, :as => :pagify_pages, :controller => 'pagify/pages' do
+          map.resources :categories, :as => :pagify_categories, :controller => 'pagify/categories'
+        end
+
+        map.resources :categories, :as => :pagify_categories, :controller => 'pagify/categories' do
+          map.resources :pages, :as => :pagify_pages, :controller => 'pagify/pages'
+        end
+
+        map.resources :categorizations, :as => :pagify_categorizations, :controller => 'pagify/categorizations'
     end
 
     def self.show_routes(map, path='/pages')

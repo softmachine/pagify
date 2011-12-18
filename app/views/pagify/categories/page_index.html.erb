@@ -1,20 +1,16 @@
-<h1>Listing categories</h1>
+<h1>categories for Page <%= @page.name %></h1>
 
 <div id="main">
   <table>
     <tr>
       <th>Name</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
 
   <% @categories.each do |category| %>
     <tr>
       <td><%= category.name %></td>
-      <td><%= link_to 'Show', category %></td>
-      <td><%= link_to 'Edit', edit_pagify_category_path(category) %></td>
-      <td><%= link_to 'Destroy', category, confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to "remove", pagify_page_pagify_category_path(@page.name, category), :method => :delete %></td>
     </tr>
   <% end %>
   </table>
@@ -23,5 +19,6 @@
 <div id="context">
     <ul>
         <li><%= link_to 'new Category', new_pagify_category_path %></li>
+        <li><%= link_to 'add Category', new_pagify_page_pagify_category_path(@page.name) %></li>
     </ul>
 </div>

@@ -1,6 +1,5 @@
-<h2>List of pages</h2>
+<h2>pages for Category <%= @category.name %></h2>
 
-<div id="main">
 <table>
   <thead>
       <tr>
@@ -18,11 +17,6 @@
         <tr>
           <td><%= page.name %></td>
           <td><%= page.title%></td>
-          <td>
-              <% for cats in page.categorizations%>
-                <%= cats.category.name  %> ,
-              <% end %>
-          </td>
           <td><%= link_to 'Show', pagify_page_path(page.name) %></td>
           <td><%= link_to 'Edit', edit_pagify_page_path((page.name)) %></td>
           <td><%= link_to 'Categories', pagify_page_pagify_categories_path((page.name)) %></td>
@@ -31,11 +25,10 @@
      <% end %>
   </tbody>
 </table>
-</div>
 
-<div id="context">
+<div>
   <ul>
-    <li><%= link_to "new Page", new_pagify_page_path%></li>
+    <li><%= link_to "New Page", new_pagify_page_path%></li>
   </ul>
 </div>
 

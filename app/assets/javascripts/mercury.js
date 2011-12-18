@@ -412,7 +412,9 @@ window.Mercury = {
   // be called directly after the Mercury scripts have loaded, but before anything has been initialized.  It's a good
   // place to add or change functionality.
   onload: function() {
-    //Mercury.PageEditor.prototype.iframeSrc = function(url) { return '/testing'; }
+    Mercury.PageEditor.prototype.iframeSrc = function(url) {
+        return (url || window.location.href).replace(/\/edit\/?/, '');
+    }
   }
 
 };
