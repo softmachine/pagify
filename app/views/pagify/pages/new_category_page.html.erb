@@ -1,12 +1,9 @@
+<div class="pagify">
     <h1>Add Page to Category <%= @category.name %></h1>
-  </div>
-  <div class="row">
-    <div class="span4 columns">
-      <!--<h3>Default styles</h3>-->
-      <p>Choose an existing page to add to the category.</p>
-    </div>
 
-    <div class="span12 columns">
+  <div id="main">
+      <p>Choose an existing page to add to the category.</p>
+      <br>
       <%= form_for(@pagify_categorization) do |f|  %>
           <% if @pagify_categorization.errors.any? %>
             <div id="error_explanation">
@@ -34,4 +31,10 @@
       <% end %>
     </div>
 
-  </div><!-- /row -->
+    <div id="context">
+        <ul>
+            <li><%= link_to 'back', :back %></li>
+        </ul>
+    </div>
+
+  </div>

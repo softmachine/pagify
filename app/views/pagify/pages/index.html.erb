@@ -1,42 +1,44 @@
-<h2>List of pages</h2>
+<div class="pagify">
+  <h2>List of pages</h2>
 
-<div id="main">
-<table>
-  <thead>
-      <tr>
-        <th>Name</th>
-        <th>Title</th>
-        <th>Categories</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-  </thead>
-
-  <tbody>
-     <% @pages.each do |page| %>
+  <div id="main">
+  <table>
+    <thead>
         <tr>
-          <td><%= page.name %></td>
-          <td><%= page.title%></td>
-          <td>
-              <% for cats in page.categorizations%>
-                <%= cats.category.name  %> ,
-              <% end %>
-          </td>
-          <td><%= link_to 'Show', pagify_page_path(page.name) %></td>
-          <td><%= link_to 'Edit', edit_pagify_page_path((page.name)) %></td>
-          <td><%= link_to 'Categories', pagify_page_pagify_categories_path((page.name)) %></td>
-          <td><%= link_to 'Delete', pagify_page_path(page.name), :confirm => 'Srsly, Mate?', :method => :delete%></td>
+          <th>Name</th>
+          <th>Title</th>
+          <th>Categories</th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
-     <% end %>
-  </tbody>
-</table>
-</div>
+    </thead>
 
-<div id="context">
-  <ul>
-    <li><%= link_to "new Page", new_pagify_page_path%></li>
-  </ul>
+    <tbody>
+       <% @pages.each do |page| %>
+          <tr>
+            <td><%= page.name %></td>
+            <td><%= page.title%></td>
+            <td>
+                <% for cats in page.categorizations%>
+                  <%= cats.category.name  %> ,
+                <% end %>
+            </td>
+            <td><%= link_to 'Show', pagify_page_path(page.name) %></td>
+            <td><%= link_to 'Edit', edit_pagify_page_path((page.name)) %></td>
+            <td><%= link_to 'Categories', pagify_page_pagify_categories_path((page.name)) %></td>
+            <td><%= link_to 'Delete', pagify_page_path(page.name), :confirm => 'Srsly, Mate?', :method => :delete%></td>
+          </tr>
+       <% end %>
+    </tbody>
+  </table>
+  </div>
+
+  <div id="context">
+    <ul>
+      <li><%= link_to "new Page", new_pagify_page_path%></li>
+    </ul>
+  </div>
 </div>
 
 

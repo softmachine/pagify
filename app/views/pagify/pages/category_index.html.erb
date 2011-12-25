@@ -1,5 +1,7 @@
+<div class="pagify">
 <h2>pages for Category <%= @category.name %></h2>
 
+    <div id="main">
 <table>
   <thead>
       <tr>
@@ -25,11 +27,13 @@
      <% end %>
   </tbody>
 </table>
+    </div>
 
-<div>
+<div id="context">
   <ul>
-    <li><%= link_to "New Page", new_pagify_page_path%></li>
+    <li><%= link_to "new page", new_pagify_page_path%></li>
   </ul>
 </div>
 
+</div>
 

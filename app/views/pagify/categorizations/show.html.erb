@@ -1,21 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="pagify">
 
-<p>
-  <b>Page:</b>
-  <%= @pagify_categorization.page_id %>
-</p>
+    <div id="main">
+        <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Category:</b>
-  <%= @pagify_categorization.category_id %>
-</p>
+        <p>
+            <b>Page:</b>
+            <%= @pagify_categorization.page_id %>
+        </p>
 
-<p>
-  <b>Position:</b>
-  <%= @pagify_categorization.position %>
-</p>
+        <p>
+            <b>Category:</b>
+            <%= @pagify_categorization.category_id %>
+        </p>
 
+        <p>
+            <b>Position:</b>
+            <%= @pagify_categorization.position %>
+        </p>
+    </div>
 
-<%= link_to 'Edit', edit_pagify_categorization_path(@pagify_categorization) %> |
-<%= link_to 'Back', pagify_categorizations_path %> |
-<%= link_to_function "Back2", "history.back()" %>
+    <div id="context">
+        <ul>
+            <li>link_to 'Edit', edit_pagify_categorization_path(@pagify_categorization)</li>
+            <li>link_to 'back', pagify_categorizations_path</li>
+            <li><%= link_to_function "back in history", "history.back()" %></li>
+        </ul>
+    </div>
+</div>

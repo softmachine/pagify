@@ -1,24 +1,26 @@
-<h1>categories for Page <%= @page.name %></h1>
+<div class="pagify">
+    <h1>categories for Page <%= @page.name %></h1>
 
-<div id="main">
-  <table>
-    <tr>
-      <th>Name</th>
-      <th></th>
-    </tr>
+    <div id="main">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th></th>
+            </tr>
 
-  <% @categories.each do |category| %>
-    <tr>
-      <td><%= category.name %></td>
-      <td><%= link_to "remove", pagify_page_pagify_category_path(@page.name, category), :method => :delete %></td>
-    </tr>
-  <% end %>
-  </table>
-</div>
+            <% @categories.each do |category| %>
+              <tr>
+                  <td><%= category.name %></td>
+                  <td><%= link_to "remove", pagify_page_pagify_category_path(@page.name, category), :method => :delete %></td>
+              </tr>
+            <% end %>
+        </table>
+    </div>
 
-<div id="context">
-    <ul>
-        <li><%= link_to 'new Category', new_pagify_category_path %></li>
-        <li><%= link_to 'add Category', new_pagify_page_pagify_category_path(@page.name) %></li>
-    </ul>
+    <div id="context">
+        <ul>
+            <li><%= link_to 'new Category', new_pagify_category_path %></li>
+            <li><%= link_to 'add Category', new_pagify_page_pagify_category_path(@page.name) %></li>
+        </ul>
+    </div>
 </div>

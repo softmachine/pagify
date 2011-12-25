@@ -1,6 +1,14 @@
-<h1>Editing pagify_categorization</h1>
+<div class="pagify">
+    <h1>Editing pagify_categorization</h1>
 
-<%= render 'form' %>
+    <div id='main'>
+        <%= render 'form' %>
+    </div>
 
-<%= link_to 'Show', @pagify_categorization %> |
-<%= link_to 'Back', pagify_categorizations_path %>
+    <div id='context'>
+        <ul>
+            <li><%= link_to 'show', @pagify_categorization %></li>
+            <li><%= link_to 'back', pagify_categorizations_path %></li>
+        </ul>
+    </div>
+</div>

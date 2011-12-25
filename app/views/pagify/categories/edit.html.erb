@@ -1,38 +1,42 @@
-
+<div class="pagify">
     <h1>Editing category <%= @category.name %></h1>
 
-    <%= render 'form_errors' %>
+    <div id="main">
+        <%= render 'form_errors' %>
 
-  <%= form_for(@category) do |f| %>
-    <h3>Category Details</h3>
-    <div class="field">
-      <%= f.label :name %>: <%= f.object.name %>
-      <%= f.hidden_field :name %>
+        <%= form_for(@category) do |f| %>
+          <h3>Category Details</h3>
+
+          <div class="field">
+              <%= f.label :name %>: <%= f.object.name %>
+              <%= f.hidden_field :name %>
+          </div>
+
+          <hr>
+          <h3>Pages</h3>
+          <%= f.fields_for :categorizations do |builder| %>
+            <div class="field">
+                <%= builder.text_field :position, :size => 1 %>
+                <%= link_to builder.object.page.name, edit_pagify_page_path(builder.object.page.name) %>
+                <%#= builder.collection_select(:page_id, Pagify::Page.all, :id, :title) %>
+                <%= builder.check_box :_destroy %>
+                <%= builder.hidden_field(:page_id) %>
+                <%= builder.label :_destroy, "Remove Page" %>
+            </div>
+          <% end %>
+          <br>
+          <%= link_to 'add Page', new_pagify_category_pagify_page_path(@category) %>
+          <hr>
+
+          <div class="actions">
+              <%= f.submit %>
+          </div>
+        <% end %>
     </div>
 
-    <hr>
-    <h3>Pages</h3>
-    <%= f.fields_for :categorizations do |builder| %>
-      <div class="field">
-        <%= builder.text_field :position, :size => 1 %>
-        <%= link_to builder.object.page.name, edit_pagify_page_path(builder.object.page.name)%>
-        <%#= builder.collection_select(:page_id, Pagify::Page.all, :id, :title) %>
-        <%= builder.check_box :_destroy %>
-        <%= builder.hidden_field(:page_id) %>
-        <%= builder.label :_destroy, "Remove Page" %>
-      </div>
-    <% end %>
-    <br>
-    <%= link_to 'add Page', new_pagify_category_pagify_page_path(@category) %>
-    <hr>
-
-    <div class="actions">
-      <%= f.submit %>
+    <div id="context">
+        <ul>
+            <li><%= link_to 'back', pagify_get_stored_location(nil, true) %></li>
+        </ul>
     </div>
-  <% end %>
-
-  <div id="context">
-      <ul>
-          <li><%= link_to 'back', pagify_get_stored_location(nil, true) %></li>
-      </ul>
-  </div>
+</div>
