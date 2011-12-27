@@ -6,7 +6,7 @@ class Pagify::CategoriesController < ApplicationController
   # GET /categories.json
   def index
     @page = get_page(params)
-    @categories = @page ? @page.categories : Pagify::Category.all
+    @categories = @page ? @page.categories : Category.all
 
     respond_to do |format|
       format.html {render "page_index" if @page } # index.html.erb otherwise
@@ -17,7 +17,7 @@ class Pagify::CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
-    @category = Pagify::Category.find(params[:id])
+    @category = Category.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -33,7 +33,7 @@ class Pagify::CategoriesController < ApplicationController
       @pagify_categorization = Pagify::Categorization.new
       @pagify_categorization.page =  @page
       @pagify_categorization.position = 0
-      @candidate_categories = Pagify::Category.not_associated_with @page
+      @candidate_categories = Category.not_associated_with @page
       #pagify_store_location(request.referrer)
 
       respond_to do |format|
@@ -43,7 +43,7 @@ class Pagify::CategoriesController < ApplicationController
       return
     end
 
-    @category = Pagify::Category.new
+    @category = Category.new
     pagify_store_location(request.referrer)
     respond_to do |format|
       format.html {render :new}
@@ -54,17 +54,17 @@ class Pagify::CategoriesController < ApplicationController
   # GET /categories/1/edit
   def edit
     pagify_store_location(request.referrer)
-    @category = Pagify::Category.find(params[:id])
+    @category = Category.find(params[:id])
   end
 
   # POST /categories
   # POST /categories.json
   def create
-    @category = Pagify::Category.new(params[:pagify_category])
+    @category = Category.new(params[:category])
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to pagify_get_stored, notice: 'Pagify::Category was successfully created.' }
+        format.html { redirect_to pagify_get_stored, notice: 'Category was successfully created.' }
         format.json { render json: @category, status: :created, location: @category }
       else
         format.html { render action: "new" }
@@ -76,11 +76,11 @@ class Pagify::CategoriesController < ApplicationController
   # PUT /categories/1
   # PUT /categories/1.json
   def update
-    @category = Pagify::Category.find(params[:id])
+    @category = Category.find(params[:id])
 
     respond_to do |format|
-      if @category.update_attributes(params[:pagify_category])
-        format.html { redirect_to pagify_get_stored, notice: 'Pagify::Category was successfully updated.' }
+      if @category.update_attributes(params[:category])
+        format.html { redirect_to pagify_get_stored, notice: 'Category was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -92,7 +92,7 @@ class Pagify::CategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    @category = Pagify::Category.find(params[:id])
+    @category = Category.find(params[:id])
     @page     = get_page(params)
 
     if @page then
@@ -105,13 +105,13 @@ class Pagify::CategoriesController < ApplicationController
     @category.destroy
 
     respond_to do |format|
-      format.html { redirect_to pagify_categories_url }
+      format.html { redirect_to categories_url }
       format.json { head :ok }
     end
   end
 
 protected
   def get_page(params)
-      params[:pagify_page_id] ? Pagify::Page.find_by_name(params[:pagify_page_id]) : nil
+      params[:page_id] ? Page.find_by_name(params[:page_id]) : nil
   end
 end

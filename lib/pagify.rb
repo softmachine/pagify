@@ -1,40 +1,15 @@
 require "pagify/engine"
 require "pagify/routes"
 require "pagify/controller"
+require "pagify/config"
+require "pagify/model"
+require "pagify/page_model"
+require "pagify/category_model"
+
 
 module Pagify
-  class Config
-    @@page_title = "Pagify"
-    cattr_accessor :page_title
-
-    @@authorizer= nil
-    cattr_reader :authorizer
-    def self.authorize(&blk)
-      @@authorizer = blk
-    end
-
-    @@show_authorizer = Proc.new { |page| true }
-    cattr_reader :show_authorizer
-    def self.authorize_show(&blk)
-      @@show_authorizer = blk
-    end
-
-    @@modify_authorizer = Proc.new { |page| instance_exec(page, &@@authorizer)}
-    cattr_reader :modify_authorizer
-    def self.authorize_modify(&blk)
-      @@modify_authorizer = blk
-    end
-
-    @@create_authorizer = lambda{ |page| instance_exec(page, &@@authorizer)}
-    cattr_reader :create_authorizer
-    def self.authorize_create(&blk)
-      @@create_authorizer = blk
-    end
-
-  end
 
   def self.setup
     yield Config
   end
-
 end

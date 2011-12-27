@@ -5,7 +5,7 @@ class Pagify::PagesBaseController < ApplicationController
 
   def index
     @category = get_category(params)
-    @pages = @category ? @category.pages : Pagify::Page.all
+    @pages = @category ? @category.pages : Page.all
     respond_to do |format|
       format.html {render "category_index" if @category } # index.html.erb otherwise
       format.json { render json: @pages }
@@ -14,7 +14,7 @@ class Pagify::PagesBaseController < ApplicationController
 
   def edit
     @edit = true
-    @page = Pagify::Page.find_by_name(params[:id])
+    @page = Page.find_by_name(params[:id])
     raise "page not found" unless @page
     raise "UnauthorizedAccess" unless authorized_modify?(@page)
 
@@ -24,15 +24,15 @@ class Pagify::PagesBaseController < ApplicationController
 
   def show
     @edit = false
-    @page = Pagify::Page.find_by_name(params[:id])
-    redirect_to pagify_pages_path(:default) unless @page
+    @page = Page.find_by_name(params[:id])
+    redirect_to pages_path(:default) unless @page
     raise UnauthorizedAccess unless authorized_show?(@page)
   end
 
   def update
     pageid = params[:id]
     logger.info "attempt to update page #{pageid}"
-    @page = Pagify::Page.find_by_name(pageid)
+    @page = Page.find_by_name(pageid)
 
     raise UnauthorizedAccess unless authorized_modify?(@page)
 
@@ -48,21 +48,21 @@ class Pagify::PagesBaseController < ApplicationController
       @pagify_categorization = Pagify::Categorization.new
       @pagify_categorization.category =  @category          #
       @pagify_categorization.position = 0
-      @candidate_pages = Pagify::Page.not_associated_with @category
+      @candidate_pages = Page.not_associated_with @category
       pagify_store_location(request.referrer)
       render :new_category_page
       return
     end
 
-    @page = Pagify::Page.new
+    @page = Page.new
     pagify_store_location(request.referrer)
     logger.info "attempt to create a new page"
   end
 
   def create
-    pageid = params[:pagify_page][:name]
+    pageid = params[:page][:name]
 
-    @page = Pagify::Page.new
+    @page = Page.new
     @page.name = pageid
     @page.title = "#{pageid} page"
     @page.content = "your content here..."
@@ -71,7 +71,7 @@ class Pagify::PagesBaseController < ApplicationController
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to edit_pagify_page_path(pageid) }
+        format.html { redirect_to edit_page_path(pageid) }
         format.json { render json: @category, status: :created, location: @category }
       else
         format.html { render action: "new" }
@@ -85,12 +85,12 @@ class Pagify::PagesBaseController < ApplicationController
     pageid = params[:id]
     logger.info "attempt to delete page #{pageid}"
 
-    @page = Pagify::Page.find_by_name(pageid)
+    @page = Page.find_by_name(pageid)
     raise UnauthorizedAccess unless authorized_modify?(@page)
 
     @category = get_category(params)
     if @category then
-      rel = Pagify::Categorization.find(@category, @page)
+      rel = Categorization.find(@category, @page)
       rel.destroy if rel
       pagify_rdr_to_stored
       return
@@ -99,7 +99,7 @@ class Pagify::PagesBaseController < ApplicationController
     @page.destroy if @page
     logger.info "page #{pageid} deleted"
 
-    pagify_rdr_to_stored(pagify_pages_path)
+    pagify_rdr_to_stored(pages_path)
   end
 
 
@@ -124,7 +124,7 @@ protected
   end
 
   def get_category(params)
-    params[:pagify_category_id] ? Pagify::Category.find(params[:pagify_category_id]) : nil
+    params[:category_id] ? Category.find(params[:category_id]) : nil
   end
 
 end

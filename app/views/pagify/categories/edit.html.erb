@@ -17,7 +17,7 @@
           <%= f.fields_for :categorizations do |builder| %>
             <div class="field">
                 <%= builder.text_field :position, :size => 1 %>
-                <%= link_to builder.object.page.name, edit_pagify_page_path(builder.object.page.name) %>
+                <%= link_to builder.object.page.name, edit_page_path(builder.object.page.name) %>
                 <%#= builder.collection_select(:page_id, Pagify::Page.all, :id, :title) %>
                 <%= builder.check_box :_destroy %>
                 <%= builder.hidden_field(:page_id) %>
@@ -25,7 +25,7 @@
             </div>
           <% end %>
           <br>
-          <%= link_to 'add Page', new_pagify_category_pagify_page_path(@category) %>
+          <%= link_to 'add Page', new_category_page_path(@category) %>
           <hr>
 
           <div class="actions">
