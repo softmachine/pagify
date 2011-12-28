@@ -36,7 +36,7 @@ class Pagify::CategorizationsController < ApplicationController
 
   def new_for_category(category)
     @pagify_categorization = Pagify::Categorization.new
-    @pagify_categorization.category = Pagify::Category.find(category)
+    @pagify_categorization.category = Category.find(category)
 
 
     respond_to do |format|

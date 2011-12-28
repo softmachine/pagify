@@ -11,7 +11,7 @@
             <% @categories.each do |category| %>
               <tr>
                   <td><%= category.name %></td>
-                  <td><%= link_to "remove", pagify_page_pagify_category_path(@page.name, category), :method => :delete %></td>
+                  <td><%= link_to "remove", page_category_path(@page.name, category), :method => :delete %></td>
               </tr>
             <% end %>
         </table>
@@ -19,8 +19,8 @@
 
     <div id="context">
         <ul>
-            <li><%= link_to 'new Category', new_pagify_category_path %></li>
-            <li><%= link_to 'add Category', new_pagify_page_pagify_category_path(@page.name) %></li>
+            <li><%= link_to 'new Category', new_category_path %></li>
+            <li><%= link_to 'add Category', new_page_category_path(@page.name) %></li>
         </ul>
     </div>
 </div>

@@ -21,7 +21,7 @@
             <tbody>
             <% for page in @category.pages %>
               <tr>
-                  <td><%= link_to page.name, pagify_page_path(page.name) %> </td>
+                  <td><%= link_to page.name, page_path(page.name) %> </td>
                   <td><%= page.title %></td>
               </tr>
             <% end %>
@@ -31,8 +31,8 @@
 
     <div id="context">
         <ul>
-            <li><%= link_to 'add Page', new_pagify_category_pagify_page_path(@category) %></li>
-            <li><%= link_to 'show Pages', pagify_category_pagify_pages_path(@category) %></li>
+            <li><%= link_to 'add Page', new_category_page_path(@category) %></li>
+            <li><%= link_to 'show Pages', category_pages_path(@category) %></li>
             <li><%= link_to 'back', :back %></li>
         </ul>
     </div>

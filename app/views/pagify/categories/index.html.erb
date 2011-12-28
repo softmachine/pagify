@@ -13,9 +13,9 @@
             <% @categories.each do |category| %>
               <tr>
                   <td><%= category.name %></td>
-                  <td><%= link_to 'Show', category %></td>
-                  <td><%= link_to 'Edit', edit_pagify_category_path(category) %></td>
-                  <td><%= link_to 'Destroy', category, confirm: 'Are you sure?', method: :delete %></td>
+                  <td><%= link_to 'Show', category_path(category) %></td>
+                  <td><%= link_to 'Edit', edit_category_path(category) %></td>
+                  <td><%= link_to 'Destroy', category_path(category), confirm: 'Are you sure?', method: :delete %></td>
               </tr>
             <% end %>
         </table>
@@ -23,7 +23,7 @@
 
     <div id="context">
         <ul>
-            <li><%= link_to 'new Category', new_pagify_category_path %></li>
+            <li><%= link_to 'new Category', new_category_path %></li>
         </ul>
     </div>
 </div>
