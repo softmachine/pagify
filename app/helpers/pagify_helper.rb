@@ -1,4 +1,10 @@
-module PagesHelper
+module Pagify::PagifyHelper
+  def pagify_get_stored_location(default=nil,keep=true)
+    location = session[:pagify_return_to] || default || request.referrer
+    session[:pagify_return_to] = nil unless keep
+
+    location
+  end
 
   def pages_list ()
     each_page do |page|
