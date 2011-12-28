@@ -4,7 +4,7 @@ module Pagify
 
     included do
       has_many :categorizations, :class_name => 'Pagify::Categorization', :foreign_key => "page_id", :dependent => :destroy
-      has_many :categories, :class_name => 'Category', :through => :categorizations
+      has_many :categories, :class_name => Pagify::Config.category_model, :through => :categorizations
 
       validates :name,  :presence => true, :uniqueness => true
       validates :title, :presence => true, :length => { :minimum => 5 }
@@ -15,12 +15,14 @@ module Pagify
         true
       end
 
+
+
       def not_associated ()
-          Page.all(:include => :categories, :conditions => ['categories.id IS ?', nil])
+        Pagify::Config.page_model.constantize.all(:include => :categories, :conditions => ['categories.id IS ?', nil])
       end
 
       def not_associated_with (page)
-          Page.all(:include => :categories,
+          all(:include => :categories,
             :conditions => ['page_id IS ? OR page_id NOT IN (SELECT pagify_categorizations.page_id from pagify_categorizations WHERE category_id == ?)', nil, page.id])
       end
     end

@@ -12,8 +12,15 @@ module Pagify
     def pagify_get_stored(default=nil)
       location = session[:pagify_return_to] || default || request.referrer
       session[:pagify_return_to] = nil
-
       location
+    end
+
+    def page_class
+      Pagify::Config.page_model.constantize
+    end
+
+    def category_class
+      Pagify::Config.category_model.constantize
     end
 
   end

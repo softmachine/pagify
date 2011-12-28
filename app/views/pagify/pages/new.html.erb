@@ -3,7 +3,7 @@
 
   <div id="main">
     <%=render 'form_errors' %>
-    <%= form_for @page do |f|  %>
+    <%= form_for(@page, :url => pages_path, :as => :page) do |f|  %>
             <%= f.text_field :name%>
             <%= f.submit 'Create Page'%>
     <% end %>

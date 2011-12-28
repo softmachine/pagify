@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :category_id %><br />
-      <%= collection_select(:pagify_categorization, :category_id, Category.all, :id, :name) %>
+      <%= collection_select(:pagify_categorization, :category_id, Pagify::Config.category_model.constantize.all, :id, :name) %>
   </div>
   <div class="field">
     <%= f.label :page_id %><br />
-    <%= collection_select(:pagify_categorization, :page_id, Page.all, :id, :title) %>
+    <%= collection_select(:pagify_categorization, :page_id, Pagify::Config.page_model.constantize.all, :id, :title) %>
   </div>
   <div class="field">
     <%= f.label :position %><br />

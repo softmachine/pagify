@@ -3,7 +3,7 @@
 
     <div id="main">
         <%= render 'form_errors' %>
-        <%= form_for(@category) do |f| %>
+        <%= form_for(@category, :url => categories_path, :as => :category) do |f| %>
           <h3>Category Details</h3>
 
           <div class="field">

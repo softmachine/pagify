@@ -3,6 +3,12 @@ module Pagify
     @@page_title = "Pagify"
     cattr_accessor :page_title
 
+    @@page_model = 'Pagify::Page'
+    cattr_accessor :page_model
+
+    @@category_model = 'Pagify::Category'
+    cattr_accessor :category_model
+
     @@authorizer= nil
     cattr_reader :authorizer
     def self.authorize(&blk)

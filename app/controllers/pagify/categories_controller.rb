@@ -6,7 +6,7 @@ class Pagify::CategoriesController < ApplicationController
   # GET /categories.json
   def index
     @page = get_page(params)
-    @categories = @page ? @page.categories : Category.all
+    @categories = @page ? @page.categories : category_class.all
 
     respond_to do |format|
       format.html {render "page_index" if @page } # index.html.erb otherwise
@@ -17,7 +17,7 @@ class Pagify::CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
-    @category = Category.find(params[:id])
+    @category = category_class.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -33,7 +33,7 @@ class Pagify::CategoriesController < ApplicationController
       @pagify_categorization = Pagify::Categorization.new
       @pagify_categorization.page =  @page
       @pagify_categorization.position = 0
-      @candidate_categories = Category.not_associated_with @page
+      @candidate_categories = category_class.not_associated_with @page
       #pagify_store_location(request.referrer)
 
       respond_to do |format|
@@ -43,7 +43,7 @@ class Pagify::CategoriesController < ApplicationController
       return
     end
 
-    @category = Category.new
+    @category = category_class.new
     pagify_store_location(request.referrer)
     respond_to do |format|
       format.html {render :new}
@@ -54,13 +54,13 @@ class Pagify::CategoriesController < ApplicationController
   # GET /categories/1/edit
   def edit
     pagify_store_location(request.referrer)
-    @category = Category.find(params[:id])
+    @category = category_class.find(params[:id])
   end
 
   # POST /categories
   # POST /categories.json
   def create
-    @category = Category.new(params[:category])
+    @category = category_class.new(params[:category])
 
     respond_to do |format|
       if @category.save
@@ -76,7 +76,7 @@ class Pagify::CategoriesController < ApplicationController
   # PUT /categories/1
   # PUT /categories/1.json
   def update
-    @category = Category.find(params[:id])
+    @category = category_class.find(params[:id])
 
     respond_to do |format|
       if @category.update_attributes(params[:category])
@@ -92,7 +92,7 @@ class Pagify::CategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    @category = Category.find(params[:id])
+    @category = category_class.find(params[:id])
     @page     = get_page(params)
 
     if @page then
@@ -112,6 +112,6 @@ class Pagify::CategoriesController < ApplicationController
 
 protected
   def get_page(params)
-      params[:page_id] ? Page.find_by_name(params[:page_id]) : nil
+      params[:page_id] ? page_class.find_by_name(params[:page_id]) : nil
   end
 end
