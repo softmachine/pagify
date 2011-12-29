@@ -31,5 +31,13 @@ module Pagify
     end
 
     # instance methods go here...
+
+    #write title only if different from name
+    def title
+      read_attribute(:title) || name
+    end
+    def title=(t)
+      write_attribute(:title, t) if t != name
+    end
   end
 end

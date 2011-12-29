@@ -11,6 +11,15 @@
               <%= f.label :name %>: <%= f.object.name %>
               <%= f.hidden_field :name %>
           </div>
+          <div class="field">
+              <%= f.label :title%><br>
+              <%= f.text_field :title, :size => 10 %>
+          </div>
+          <div class="field">
+              <%= f.label :description%><br>
+              <%= f.text_field :description, :size => 30 %>
+          </div>
+
 
           <hr>
           <h3>Pages</h3>
