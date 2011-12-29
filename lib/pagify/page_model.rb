@@ -6,6 +6,8 @@ module Pagify
       has_many :categorizations, :class_name => 'Pagify::Categorization', :foreign_key => "page_id", :dependent => :destroy
       has_many :categories, :class_name => Pagify::Config.category_model, :through => :categorizations
 
+      accepts_nested_attributes_for :categorizations, :allow_destroy => true
+
       validates :name,  :presence => true, :uniqueness => true
       validates :title, :presence => true, :length => { :minimum => 5 }
     end

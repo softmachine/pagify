@@ -413,7 +413,7 @@ window.Mercury = {
   // place to add or change functionality.
   onload: function() {
     Mercury.PageEditor.prototype.iframeSrc = function(url) {
-        return (url || window.location.href).replace(/\/edit\/?/, '');
+        return (url || window.location.href).replace(/\/modify\/?/, '');
     }
   }
 

@@ -12,7 +12,7 @@ class Pagify::PagesBaseController < ApplicationController
     end
   end
 
-  def edit
+  def modify
     @edit = true
     @page = page_class.find_by_name(params[:id])
     raise "page not found" unless @page
@@ -29,7 +29,29 @@ class Pagify::PagesBaseController < ApplicationController
     raise UnauthorizedAccess unless authorized_show?(@page)
   end
 
+  def edit
+    pagify_store_location(request.referrer)
+    @page = page_class.find_by_name(params[:id])
+  end
+
+
   def update
+    pageid = params[:id]
+    logger.info "attempt to update page #{pageid}"
+    @page = page_class.find_by_name(pageid)
+
+    respond_to do |format|
+      if @page.update_attributes(params[:page])
+        format.html { redirect_to pagify_get_stored, notice: 'Category was successfully updated.' }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @category.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def updatemodified
     pageid = params[:id]
     logger.info "attempt to update page #{pageid}"
     @page = page_class.find_by_name(pageid)
@@ -46,7 +68,7 @@ class Pagify::PagesBaseController < ApplicationController
     @category = get_category(params)
     if @category then
       @pagify_categorization = Pagify::Categorization.new
-      @pagify_categorization.category =  @category          #
+      @pagify_categorization.category =  @category
       @pagify_categorization.position = 0
       @candidate_pages = page_class.not_associated_with @category
       pagify_store_location(request.referrer)
@@ -68,10 +90,9 @@ class Pagify::PagesBaseController < ApplicationController
     @page.content = "your content here..."
 
     raise UnauthorizedAccess unless authorized_create?(@page)
-
     respond_to do |format|
       if @page.save
-        format.html { redirect_to edit_page_path(pageid) }
+        format.html { redirect_to pagify_get_stored, notice: 'Page was successfully created.' }
         format.json { render json: @category, status: :created, location: @category }
       else
         format.html { render action: "new" }
@@ -99,7 +120,7 @@ class Pagify::PagesBaseController < ApplicationController
     @page.destroy if @page
     logger.info "page #{pageid} deleted"
 
-    pagify_rdr_to_stored(pages_path)
+    redirect_to :back
   end
 
 

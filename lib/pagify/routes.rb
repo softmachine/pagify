@@ -4,6 +4,10 @@ module Pagify
         Mercury::Engine.routes
 
         map.resources :pages, :as => :pages, :controller => 'pagify/pages' do
+          map.member do
+            map.get 'modify'
+            map.put 'updatemodified'
+          end
           map.resources :categories, :as => :categories, :controller => 'pagify/categories'
         end
 
@@ -11,7 +15,7 @@ module Pagify
           map.resources :pages, :as => :pages, :controller => 'pagify/pages'
         end
 
-        map.resources :categorizations, :as => :pagify_categorizations, :controller => 'pagify/categorizations'
+        map.resources :categorizations, :as => :pagify_categorizations, :controller => 'pagify/categorizations', :only => [:create]
     end
 
     def self.show_routes(map, path='/pages')

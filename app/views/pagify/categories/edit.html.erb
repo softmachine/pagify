@@ -14,16 +14,19 @@
 
           <hr>
           <h3>Pages</h3>
-          <%= f.fields_for :categorizations do |builder| %>
-            <div class="field">
-                <%= builder.text_field :position, :size => 1 %>
-                <%= link_to builder.object.page.name, edit_page_path(builder.object.page.name) %>
-                <%#= builder.collection_select(:page_id, Pagify::Page.all, :id, :title) %>
-                <%= builder.check_box :_destroy %>
-                <%= builder.hidden_field(:page_id) %>
-                <%= builder.label :_destroy, "Remove Page" %>
-            </div>
-          <% end %>
+          <table>
+              <tbody>
+                <%= f.fields_for :categorizations do |builder| %>
+                      <tr>
+                        <td><%= builder.hidden_field(:page_id) %><%= builder.text_field :position, :size => 1 %></td>
+                        <td><%= link_to builder.object.page.name, edit_page_path(builder.object.page.name) %></td>
+                        <td><%= link_to "remove", page_category_path(builder.object.page.name,@category), :method => :delete %></td>
+                        <%#= builder.check_box :_destroy %>
+                        <%#= builder.label :_destroy, "Remove Page" %>
+                      </tr>
+                <% end %>
+              </tbody>
+          </table>
           <br>
           <%= link_to 'add Page', new_category_page_path(@category) %>
           <hr>

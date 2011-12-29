@@ -1,15 +1,49 @@
-<section id="edit-page">
-  <% if @edit %>
-    <%= javascript_tag do %>
-      window.mercuryLoaded = function() {
-        Mercury.saveURL = '<%= page_path(@page.name) %>'
-        $(window).bind('mercury:saved', function() {
-            window.location = window.location.href = '<%= pagify_get_stored_location(nil, false) %>'
-        });
-      }
-    <% end %>
+<div class="pagify">
+    <h1>Edit Page <%= @page.name %></h1>
 
-    <%= javascript_include_tag 'mercury_loader.js?saveStyle=form&saveMethod=PUT'%>
-  <% end %>
+    <div id="main">
+        <%= render 'form_errors' %>
 
-</section>
+        <%= form_for(@page, :url => page_path(@page.name), :as => :page) do |f| %>
+          <h3>Page Details</h3>
+
+          <div class="field">
+              <%= f.label :name %>: <%= f.object.name %>
+              <%= f.hidden_field :name %>
+          </div>
+          <div class="field">
+              <%= f.label :title %>: <%= f.object.title %>
+              <%#= f.hidden_field :title %>
+          </div>
+          <hr>
+
+          <h3>categories 1</h3>
+          <table>
+              <tbody>
+                <%= f.fields_for :categorizations do |builder| %>
+                      <tr>
+                        <td><%= builder.hidden_field(:category_id) %></td>
+                        <td><%= link_to builder.object.category.name, edit_category_path(builder.object.category.id) %></td>
+                        <td><%= link_to "remove", page_category_path(@page.name, builder.object.category.id), :method => :delete %></td>
+                      </tr>
+                <% end %>
+              </tbody>
+          </table>
+          <br>
+          <%= link_to 'add category', new_page_category_path(@page.name) %>
+          <hr>
+
+          <div class="actions">
+              <%= f.submit %>
+          </div>
+        <% end %>
+    </div>
+
+    <div id="context">
+        <ul>
+            <li><%= link_to 'show page', page_path(@page.name)%></li>
+            <li><%= link_to 'modify content', modify_page_path(@page.name)%></li>
+            <li><%= link_to 'back', pagify_get_stored_location(nil, true) %></li>
+        </ul>
+    </div>
+</div>
