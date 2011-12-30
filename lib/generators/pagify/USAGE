@@ -1,0 +1,14 @@
+Description:
+    generates initializer, routes and migration to get you started with pagify
+
+    to populate the db with (pagify) sample pages, use 'rake pagify:seed'
+
+
+Example:
+    rails generate pagify:install
+
+    This will create:
+        config/initializers/pagify.rb
+        db/migrate/<migid>_create_pagify_tables.rb
+
+        a pagify default route entry in config/routes.rb

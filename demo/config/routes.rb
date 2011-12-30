@@ -1,4 +1,6 @@
 Demo::Application.routes.draw do
+  Pagify::Router.routes self,'/pagify'
+
   devise_for :users
 
   scope :constraints => lambda{|req| true } do |s|

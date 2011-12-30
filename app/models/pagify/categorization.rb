@@ -7,5 +7,4 @@ class Pagify::Categorization < ActiveRecord::Base
   validates_uniqueness_of :page_id, :scope => :category_id
   validates :page,  :presence => true
   validates :category,  :presence => true
-
 end
