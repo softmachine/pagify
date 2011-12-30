@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://www.softmachine.at"
   s.summary     = "painless content without a CMS"
   s.description = "Pagify allows to create and maintain content-pages. The pages are stored in the
-database an can be edited inplace, using the surprisingly powerfull mercury  editor"
+database an can be edited in-place, using the surprisingly powerful mercury  editor"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
