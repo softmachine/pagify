@@ -1,0 +1,8 @@
+<div class="field">
+  <%= hidden_field_tag("page[category_ids][]", nil) if select_current%>
+  <% @categories.each do |category| %>
+    <% sel =  @page.category_ids.include?(category.id) if select_current%>
+    <%= check_box_tag "page[category_ids][]", category.id, sel %>
+    <%= category.name %><br/>
+  <% end %>
+</div>

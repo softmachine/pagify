@@ -9,14 +9,14 @@ Demo::Application.routes.draw do
   end
 
   authenticated :user do
-    root :to => "pagify/pages#show", :id => 'about'
+    root :to => "pagify/pages/pages#show", :id => 'about'
     Pagify::Router.page(self, "/sepp", :about)
   end
 
-  Pagify::Router.routes(self, "/admin/pages")
+  #Pagify::Router.routes(self, "/admin/pages")
   Pagify::Router.page(self, "/about", :about)
 
-  root :to => "pagify/pages#show", :id => 'home'
+  root :to => "pagify/pages/pages#show", :id => 'home'
 
   match '/test/:id' => "home#test1"
 

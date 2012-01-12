@@ -1,0 +1,21 @@
+<div class="pagify">
+    <h1>add pages for category <%= @category.name %></h1>
+
+    <div id="main">
+        <%= render 'form_errors' %>
+
+        <%= form_for(@category, :url => remove_category_pages_path(@category), :as => :page) do |f| %>
+          <%= render :partial => 'category_pages', :locals => {:select_current => false}%>
+          <hr>
+          <div class="actions">
+              <%= f.submit "Save" %>
+          </div>
+        <% end %>
+    </div>
+
+    <div id="context">
+        <ul>
+            <li><%= link_to 'back', pagify_get_stored_location(nil, true) %></li>
+        </ul>
+    </div>
+</div>

@@ -13,7 +13,8 @@ gem "jquery-rails"
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-gem 'mercury-rails', :git => 'https://github.com/jejacks0n/mercury.git'
+gem 'mercury-rails', :git => 'https://github.com/jejacks0n/mercury.git',
+    :ref => '3ef08211d8d634afbddd2fdb6df5d51c70b8a848'
 
 platform :ruby do
   gem 'less-rails'

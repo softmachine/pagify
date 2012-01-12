@@ -15,22 +15,9 @@
               <%= f.label :title %>: <%= f.object.title %>
               <%#= f.hidden_field :title %>
           </div>
-          <hr>
 
-          <h3>categories 1</h3>
-          <table>
-              <tbody>
-                <%= f.fields_for :categorizations do |builder| %>
-                      <tr>
-                        <td><%= builder.hidden_field(:category_id) %></td>
-                        <td><%= link_to builder.object.category.name, edit_category_path(builder.object.category.id) %></td>
-                        <td><%= link_to "remove", page_category_path(@page.name, builder.object.category.id), :method => :delete %></td>
-                      </tr>
-                <% end %>
-              </tbody>
-          </table>
-          <br>
-          <%= link_to 'add category', new_page_category_path(@page.name) %>
+          <h3>categories</h3>
+          <%= render :partial => 'page_categories', :locals => {:select_current => true}%>
           <hr>
 
           <div class="actions">
@@ -43,6 +30,9 @@
         <ul>
             <li><%= link_to 'show page', page_path(@page.name)%></li>
             <li><%= link_to 'modify content', modify_page_path(@page.name)%></li>
+            <li><%= link_to 'edit categories', edit_page_categories_path(@page.name)%></li>
+            <li><%= link_to 'add categories', add_page_categories_path(@page.name)%></li>
+            <li><%= link_to 'remove categories', remove_page_categories_path(@page.name)%></li>
             <li><%= link_to 'back', pagify_get_stored_location(nil, true) %></li>
         </ul>
     </div>

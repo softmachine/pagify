@@ -1,32 +1,57 @@
 module Pagify
   class Router
-    def self.routes(map, path='/pagify')
-        Mercury::Engine.routes
+    cattr_accessor :mercury_included
+    mercury_included = false
 
-        map.resources :pages, :as => :pages, :path => "#{path}/pages", :controller => 'pagify/pages' do
+    def self.routes(map, path='/pagify')
+        include_mercury
+
+        map.resources :pages, :as => :pages, :path => "#{path}/pages", :controller => 'pagify/pages/pages' do
           map.member do
             map.get 'modify'
             map.put 'updatemodified'
           end
-          map.resources :categories, :as => :categories, :controller => 'pagify/categories'
+          map.resources :categories, :as => :categories, :controller => 'pagify/pages/page_categories', :only => [:new, :destroy] do
+            map.collection do
+              map.get  :add, :action => :add_categories
+              map.put  :add, :action => :update_added_categories
+              map.get  :remove, :action => :remove_categories
+              map.put  :remove, :action => :update_removed_categories
+              map.get  :edit, :action => :edit_categories
+              map.put  :update, :action => :update_categories
+            end
+          end
         end
 
-        map.resources :categories, :as => :categories, :path => "#{path}/categories", :controller => 'pagify/categories' do
-          map.resources :pages, :as => :pages, :controller => 'pagify/pages'
-        end
+        map.resources :categories, :as => :categories, :path => "#{path}/categories", :controller => 'pagify/categories/categories' do
+          map.resources :pages, :as => :pages, :controller => 'pagify/categories/category_pages', :only => [:new, :destroy] do
 
-        map.resources :categorizations, :as => :pagify_categorizations, :path => "#{path}/categorizations", :controller => 'pagify/categorizations', :only => [:create]
+            map.collection do
+              map.get  :add, :action => :add_pages
+              map.put  :add, :action => :update_added_pages
+              map.get  :remove, :action => :remove_pages
+              map.put  :remove, :action => :update_removed_pages
+              map.get  :edit, :action => :edit_pages
+              map.put  :update, :action => :update_pages
+            end
+          end
+        end
     end
 
     def self.show_routes(map, path='/pages')
-      Mercury::Engine.routes
-      map.resources :pages, :as => :pagify_show_pages, :path => path, :controller => 'pagify/pages', :only => [:show]
+      include_mercury
+      map.resources :pages, :as => :pagify_show_pages, :path => path, :controller => 'pagify/pages/pages', :only => [:show]
     end
 
 
     def self.page(map, path, pagename)
       name = "#{pagename}_page"
-      map.match path => 'pagify/pages#show', :as => name, :defaults => { :id => pagename}
+      map.match path => 'pagify/pages/pages#show', :as => name, :defaults => { :id => pagename}
+    end
+
+    def self.include_mercury
+      Mercury::Engine.routes unless mercury_included
+      mercury_included=true
     end
   end
 end

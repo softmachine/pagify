@@ -1,7 +1,6 @@
-class Pagify::PagesBaseController < ApplicationController
-  protect_from_forgery
+class Pagify::Pages::BaseController < Pagify::BaseController
+  self.pagify_view_type = "pages"
 
-  include Pagify::Controller
 
   def index
     @category = get_category(params)
@@ -30,8 +29,11 @@ class Pagify::PagesBaseController < ApplicationController
   end
 
   def edit
-    pagify_store_location(request.referrer)
     @page = page_class.find_by_name(params[:id])
+    raise "page not found" unless @page
+    @categories = category_class.all
+
+    pagify_store_location(request.referrer)
   end
 
 
@@ -125,7 +127,7 @@ class Pagify::PagesBaseController < ApplicationController
 
 
 protected
-  def page_not_found
+  def page_not_found   g
     raise ActionController::RoutingError.new('Page Not Found')
   end
 

@@ -1,6 +1,5 @@
-class Pagify::CategoriesBaseController < ApplicationController
-
-  include Pagify::Controller
+class Pagify::Categories::BaseController < Pagify::BaseController
+  self.pagify_view_type = "categories"
 
   # GET /categories
   # GET /categories.json
