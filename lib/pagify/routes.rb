@@ -6,12 +6,12 @@ module Pagify
     def self.routes(map, path='/pagify')
         include_mercury
 
-        map.resources :pages, :as => :pages, :path => "#{path}/pages", :controller => 'pagify/pages/pages' do
+        map.resources :pages, :as => :pages, :path => "#{path}/pages", :controller => 'pagify/pages' do
           map.member do
             map.get 'modify'
             map.put 'updatemodified'
           end
-          map.resources :categories, :as => :categories, :controller => 'pagify/pages/page_categories', :only => [:new, :destroy] do
+          map.resources :categories, :as => :categories, :controller => 'pagify/page_categories', :only => [:new, :destroy] do
             map.collection do
               map.get  :add, :action => :add_categories
               map.put  :add, :action => :update_added_categories
@@ -23,8 +23,8 @@ module Pagify
           end
         end
 
-        map.resources :categories, :as => :categories, :path => "#{path}/categories", :controller => 'pagify/categories/categories' do
-          map.resources :pages, :as => :pages, :controller => 'pagify/categories/category_pages', :only => [:new, :destroy] do
+        map.resources :categories, :as => :categories, :path => "#{path}/categories", :controller => 'pagify/categories' do
+          map.resources :pages, :as => :pages, :controller => 'pagify/category_pages', :only => [:new, :destroy] do
 
             map.collection do
               map.get  :add, :action => :add_pages
@@ -40,13 +40,13 @@ module Pagify
 
     def self.show_routes(map, path='/pages')
       include_mercury
-      map.resources :pages, :as => :pagify_show_pages, :path => path, :controller => 'pagify/pages/pages', :only => [:show]
+      map.resources :pages, :as => :pagify_show_pages, :path => path, :controller => 'pagify/pages', :only => [:show]
     end
 
 
     def self.page(map, path, pagename)
       name = "#{pagename}_page"
-      map.match path => 'pagify/pages/pages#show', :as => name, :defaults => { :id => pagename}
+      map.match path => 'pagify/pages#show', :as => name, :defaults => { :id => pagename}
     end
 
     def self.include_mercury
