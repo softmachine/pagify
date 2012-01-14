@@ -21,7 +21,7 @@
             <tbody>
             <% for page in @category.pages %>
               <tr>
-                  <td><%= link_to page.name, page_path(page.name) %> </td>
+                  <td><%= link_to page.name, page_path(page.id) %> </td>
                   <td><%= page.title %></td>
               </tr>
             <% end %>

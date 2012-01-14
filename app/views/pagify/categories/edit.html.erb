@@ -28,8 +28,8 @@
                 <%= f.fields_for :categorizations do |builder| %>
                       <tr>
                         <td><%= builder.hidden_field(:page_id) %><%= builder.text_field :position, :size => 1 %></td>
-                        <td><%= link_to builder.object.page.name, edit_page_path(builder.object.page.name) %></td>
-                        <td><%= link_to "remove", category_page_path(@category, builder.object.page.name), :method => :delete %></td>
+                        <td><%= link_to builder.object.page.name, edit_page_path(builder.object.page.id) %></td>
+                        <td><%= link_to "remove", category_page_path(@category, builder.object.page.id), :method => :delete %></td>
                         <%#= builder.check_box :_destroy %>
                         <%#= builder.label :_destroy, "Remove Page" %>
                       </tr>

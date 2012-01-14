@@ -21,7 +21,7 @@ module Pagify
 
       def modify
         @edit = true
-        @page = page_class.find_by_name(params[:id])
+        @page = page_class.find(params[:id])
         raise "page not found" unless @page
         raise "UnauthorizedAccess" unless authorized_modify?(@page)
 
@@ -31,13 +31,13 @@ module Pagify
 
       def show
         @edit = false
-        @page = page_class.find_by_name(params[:id])
+        @page = page_class.find(params[:id])
         redirect_to pages_path(:default) unless @page
         raise UnauthorizedAccess unless authorized_show?(@page)
       end
 
       def edit
-        @page = page_class.find_by_name(params[:id])
+        @page = page_class.find(params[:id])
         raise "page not found" unless @page
         @categories = category_class.all
 
@@ -48,7 +48,7 @@ module Pagify
       def update
         pageid = params[:id]
         logger.info "attempt to update page #{pageid}"
-        @page = page_class.find_by_name(pageid)
+        @page = page_class.find(pageid)
 
         respond_to do |format|
           if @page.update_attributes(params[:page])
@@ -64,7 +64,7 @@ module Pagify
       def updatemodified
         pageid = params[:id]
         logger.info "attempt to update page #{pageid}"
-        @page = page_class.find_by_name(pageid)
+        @page = page_class.find(pageid)
 
         raise UnauthorizedAccess unless authorized_modify?(@page)
 
@@ -109,7 +109,7 @@ module Pagify
         pageid = params[:id]
         logger.info "attempt to delete page #{pageid}"
 
-        @page = page_class.find_by_name(pageid)
+        @page = page_class.find(pageid)
         raise UnauthorizedAccess unless authorized_modify?(@page)
         @page.destroy if @page
         logger.info "page #{pageid} deleted"
@@ -118,7 +118,7 @@ module Pagify
       end
 
 
-      def page_not_found   g
+      def page_not_found
         raise ActionController::RoutingError.new('Page Not Found')
       end
 

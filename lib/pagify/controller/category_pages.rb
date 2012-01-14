@@ -77,7 +77,7 @@ module Pagify
       def destroy
         @category = category_class.find(params[:category_id])
         raise "category not found (#{params[:category_id]})" unless @category
-        @page = page_class.find_by_name(params[:id])
+        @page = page_class.find(params[:id])
         raise "page not found (#{params[:id]})" unless @page
 
         @category.pages.delete(@page)

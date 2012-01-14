@@ -4,7 +4,7 @@
     <div id="main">
         <%= render 'form_errors' %>
 
-        <%= form_for(@page, :url => remove_page_categories_path(@page.name), :as => :page) do |f| %>
+        <%= form_for(@page, :url => remove_page_categories_path(@page.id), :as => :page) do |f| %>
           <%= render :partial => 'page_categories', :locals => {:select_current => false}%>
           <hr>
           <div class="actions">

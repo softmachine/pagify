@@ -12,21 +12,21 @@ module Pagify
       end
 
       def add_categories
-        @page = page_class.find_by_name(params[:page_id])
+        @page = page_class.find(params[:page_id])
         raise "page not found (#{params[:page_id]})" unless @page
         @categories = category_class.not_associated_with(@page)
         pagify_store_location request.referrer
       end
 
       def remove_categories
-        @page = page_class.find_by_name(params[:page_id])
+        @page = page_class.find(params[:page_id])
         raise "page not found (#{params[:page_id]})" unless @page
         @categories = @page.categories
         pagify_store_location request.referrer
       end
 
       def update_added_categories
-        @page = page_class.find_by_name(params[:page_id])
+        @page = page_class.find(params[:page_id])
         raise "page not found (#{params[:page_id]})" unless @page
 
         selected_categories = params[:page][:category_ids]  if params[:page]
@@ -45,7 +45,7 @@ module Pagify
       end
 
         def update_removed_categories
-          @page = page_class.find_by_name(params[:page_id])
+          @page = page_class.find(params[:page_id])
           raise "page not found (#{params[:page_id]})" unless @page
 
           selected_categories = params[:page][:category_ids]
@@ -67,7 +67,7 @@ module Pagify
         end
 
       def edit_categories
-        @page = page_class.find_by_name(params[:page_id])
+        @page = page_class.find(params[:page_id])
         raise "page not found (#{params[:page_id]})" unless @page
         @categories = category_class.all
         pagify_store_location request.referrer
@@ -76,7 +76,7 @@ module Pagify
       def update_categories
         pageid = params[:page_id]
         logger.info "attempt to update page categories #{pageid}"
-        @page = page_class.find_by_name(pageid)
+        @page = page_class.find(pageid)
 
         respond_to do |format|
           if @page.update_attributes(params[:page])
