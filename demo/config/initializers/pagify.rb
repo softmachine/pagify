@@ -1,8 +1,9 @@
 Pagify.setup do |config|
   config.page_title = "pagify demo pages"
 
-  #config.page_model = "Page"
-  #config.category_model = "Category"
+  # config.use_friendly_id = false
+  # config.page_model = "Page"
+  # config.category_model = "Category"
 
   config.authorize do  |page|
     puts "attempt to authorize page #{page.name} ..."

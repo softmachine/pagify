@@ -49,7 +49,7 @@ module Pagify
       page_class = Pagify::Config.page_model.constantize
       page = page_class.find_by_name(pagename)
       if page then
-        map.match path => 'pagify/pages#show', :as => name, :defaults => { :id => page.name}
+        map.match path => 'pagify/pages#show', :as => name, :defaults => { :id => page.id}
       else
         Rails.logger.warn ("pagify page #{pagename} does not exist !")
       end

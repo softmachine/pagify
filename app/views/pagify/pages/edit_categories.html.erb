@@ -4,7 +4,7 @@
     <div id="main">
         <%= render 'form_errors' %>
 
-        <%= form_for(@page, :url => page_categories_path(@page.id), :as => :page) do |f| %>
+        <%= form_for(@page, :url => page_categories_path(@page), :as => :page) do |f| %>
           <%= render :partial => 'page_categories', :locals => {:select_current => true}%>
           <hr>
           <div class="actions">
@@ -15,9 +15,9 @@
 
     <div id="context">
         <ul>
-            <li><%= link_to 'show page', page_path(@page.id)%></li>
-            <li><%= link_to 'edit page', edit_page_path(@page.id)%></li>
-            <li><%= link_to 'modify content', modify_page_path(@page.id)%></li>
+            <li><%= link_to 'show page', page_path(@page)%></li>
+            <li><%= link_to 'edit page', edit_page_path(@page)%></li>
+            <li><%= link_to 'modify content', modify_page_path(@page)%></li>
             <li><%= link_to 'back', pagify_get_stored_location(nil, true) %></li>
         </ul>
     </div>

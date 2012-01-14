@@ -16,6 +16,7 @@ gem "jquery-rails"
 gem 'mercury-rails', :git => 'https://github.com/jejacks0n/mercury.git',
     :ref => '3ef08211d8d634afbddd2fdb6df5d51c70b8a848'
 
+gem 'friendly_id'
 platform :ruby do
   gem 'less-rails'
 end

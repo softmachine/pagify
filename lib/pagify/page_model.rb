@@ -3,6 +3,11 @@ module Pagify
     extend ActiveSupport::Concern
 
     included do
+      if Pagify::Config.use_friendly_id
+        extend FriendlyId
+        friendly_id :name
+      end
+
       has_many :categorizations, :class_name => 'Pagify::Categorization', :foreign_key => "page_id", :dependent => :destroy
       has_many :categories, :class_name => Pagify::Config.category_model, :through => :categorizations
 

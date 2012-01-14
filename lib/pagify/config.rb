@@ -33,5 +33,12 @@ module Pagify
       @@create_authorizer = blk
     end
 
+
+    @@use_friendly_id = true
+    cattr_reader :use_friendly_id
+    def self.use_friendly_id= (use)
+      @@use_friendly_id = use
+    end
+
   end
 end

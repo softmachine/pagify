@@ -4,7 +4,7 @@
     <div id="main">
         <%= render 'form_errors' %>
 
-        <%= form_for(@page, :url => page_path(@page.id), :as => :page) do |f| %>
+        <%= form_for(@page, :url => page_path(@page), :as => :page) do |f| %>
           <h3>Page Details</h3>
 
           <div class="field">
@@ -28,11 +28,11 @@
 
     <div id="context">
         <ul>
-            <li><%= link_to 'show page', page_path(@page.id)%></li>
-            <li><%= link_to 'modify content', modify_page_path(@page.id)%></li>
-            <li><%= link_to 'edit categories', edit_page_categories_path(@page.id)%></li>
-            <li><%= link_to 'add categories', add_page_categories_path(@page.id)%></li>
-            <li><%= link_to 'remove categories', remove_page_categories_path(@page.id)%></li>
+            <li><%= link_to 'show page', page_path(@page)%></li>
+            <li><%= link_to 'modify content', modify_page_path(@page)%></li>
+            <li><%= link_to 'edit categories', edit_page_categories_path(@page)%></li>
+            <li><%= link_to 'add categories', add_page_categories_path(@page)%></li>
+            <li><%= link_to 'remove categories', remove_page_categories_path(@page)%></li>
             <li><%= link_to 'back', pagify_get_stored_location(nil, true) %></li>
         </ul>
     </div>

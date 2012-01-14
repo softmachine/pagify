@@ -118,7 +118,7 @@ module Pagify
       end
 
 
-      def page_not_found
+      def page_not_found   g
         raise ActionController::RoutingError.new('Page Not Found')
       end
 
