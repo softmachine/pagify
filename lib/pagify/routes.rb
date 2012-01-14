@@ -46,7 +46,13 @@ module Pagify
 
     def self.page(map, path, pagename)
       name = "#{pagename}_page"
-      map.match path => 'pagify/pages#show', :as => name, :defaults => { :id => pagename}
+      page_class = Pagify::Config.page_model.constantize
+      page = page_class.find_by_name(pagename)
+      if page then
+        map.match path => 'pagify/pages#show', :as => name, :defaults => { :id => page.name}
+      else
+        Rails.logger.warn ("pagify page #{pagename} does not exist !")
+      end
     end
 
     def self.include_mercury

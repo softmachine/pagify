@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   def pagify_reload
     Pagify.reload if Rails.env.development?
+    Rails.application.reload_routes! if Rails.env.development?
   end
 
 end
