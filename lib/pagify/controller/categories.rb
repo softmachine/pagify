@@ -14,11 +14,10 @@ module Pagify
       # GET /categories
       # GET /categories.json
       def index
-        @page = get_page(params)
-        @categories = @page ? @page.categories : category_class.all
+        @categories = category_class.all
 
         respond_to do |format|
-          format.html {render "page_index" if @page } # index.html.erb otherwise
+          format.html
           format.json { render json: @categories }
         end
       end
@@ -37,33 +36,13 @@ module Pagify
       # GET /categories/new
       # GET /categories/new.json
       def new
-        @page = get_page(params)
-        if @page
-          @pagify_categorization = Pagify::Categorization.new
-          @pagify_categorization.page =  @page
-          @pagify_categorization.position = 0
-          @candidate_categories = category_class.not_associated_with @page
-          pagify_store_location(request.referrer)
-
-          respond_to do |format|
-            format.html {render :new_page_category}
-            format.json { render json: @pagify_categorization }
-          end
-          return
-        end
-
         @category = category_class.new
+
         pagify_store_location(request.referrer)
         respond_to do |format|
-          format.html {render :new}
+          format.html
           format.json { render json: @category }
         end
-      end
-
-      # GET /categories/1/edit
-      def edit
-        pagify_store_location(request.referrer)
-        @category = category_class.find(params[:id])
       end
 
       # POST /categories
@@ -80,6 +59,12 @@ module Pagify
             format.json { render json: @category.errors, status: :unprocessable_entity }
           end
         end
+      end
+
+      # GET /categories/1/edit
+      def edit
+        @category = category_class.find(params[:id])
+        pagify_store_location(request.referrer)
       end
 
       # PUT /categories/1
@@ -102,15 +87,6 @@ module Pagify
       # DELETE /categories/1.json
       def destroy
         @category = category_class.find(params[:id])
-        @page     = get_page(params)
-
-        if @page then
-          rel = Pagify::Categorization.find_by_category_id_and_page_id(@category.id, @page.id)
-          rel.destroy if rel
-          redirect_to :back
-          return
-        end
-
         @category.destroy
 
         respond_to do |format|
@@ -118,12 +94,6 @@ module Pagify
           format.json { head :ok }
         end
       end
-
-      def get_page(params)
-          params[:page_id] ? page_class.find_by_name(params[:page_id]) : nil
-      end
-
-
     end # CategoriesController
   end  # Controller
 end #Pagify

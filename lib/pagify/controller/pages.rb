@@ -12,10 +12,9 @@ module Pagify
       end
 
       def index
-        @category = get_category(params)
-        @pages = @category ? @category.pages : page_class.all
+        @pages = page_class.all
         respond_to do |format|
-          format.html {render "category_index" if @category } # index.html.erb otherwise
+          format.html
           format.json { render json: @pages }
         end
       end
@@ -76,20 +75,13 @@ module Pagify
       end
 
       def new
-        @category = get_category(params)
-        if @category then
-          @pagify_categorization = Pagify::Categorization.new
-          @pagify_categorization.category =  @category
-          @pagify_categorization.position = 0
-          @candidate_pages = page_class.not_associated_with @category
-          pagify_store_location(request.referrer)
-          render :new_category_page
-          return
-        end
-
         @page = page_class.new
         pagify_store_location(request.referrer)
-        logger.info "attempt to create a new page"
+
+        respond_to do |format|
+          format.html
+          format.json { render json: @page }
+        end
       end
 
       def create
@@ -119,15 +111,6 @@ module Pagify
 
         @page = page_class.find_by_name(pageid)
         raise UnauthorizedAccess unless authorized_modify?(@page)
-
-        @category = get_category(params)
-        if @category then
-          rel = Categorization.find(@category, @page)
-          rel.destroy if rel
-          pagify_rdr_to_stored
-          return
-        end
-
         @page.destroy if @page
         logger.info "page #{pageid} deleted"
 
@@ -154,9 +137,6 @@ module Pagify
         false
       end
 
-      def get_category(params)
-        params[:category_id] ? category_class.find(params[:category_id]) : nil
-      end
     end # PagesController
   end  # Controller
 end #Pagify

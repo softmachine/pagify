@@ -1,3 +1,3 @@
-class Pagify::PageCategoriesController < Pagify::BaseController
+class Pagify::PageCategoriesController < ApplicationController
   include Pagify::Controller::PageCategories
 end
