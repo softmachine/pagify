@@ -76,6 +76,12 @@ module Pagify
 
       def new
         @page = page_class.new
+        @categories = category_class.all
+
+        if params[:category]
+          category = category_class.find(params[:category]) rescue category = nil
+          @page.categories << category if category
+        end
         pagify_store_location(request.referrer)
 
         respond_to do |format|
