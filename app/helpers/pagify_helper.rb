@@ -15,25 +15,38 @@ module PagifyHelper
   end
 
   def pagify_pages_list (category=nil)
-    html = pagify_each_page(category) do |page|
+    result = pagify_each_page(category) do |page|
       content_tag (:li) do
         link_to(page.name, page_path(page.name))
       end
     end
 
-    html.html_safe
+    return result
   end
 
-  def pagify_each_page (category, &block)
-    pages = pagify_category_class.find_by_name(category).pages if category
-    pages ||= pagify_page_class.all
-
-    html = ""
-    pages.each do |page|
-      html += capture(page, &block)
+  def pagify_each_page (category=nil, &block)
+    pages = pagify_page_class.all unless category
+    
+    if (category) 
+      cat = pagify_category_class.find_by_name(category)
+      pages = cat.pages if cat ;
     end
+    
+    if (pages)
+      result = pages.collect do |page|
+        block.call(page)
+      end
+    end  
 
-    html
+    return '' unless result
+    return result.join.html_safe
+  end
+
+  def is_category?(category_name)
+    cat = pagify_category_class.find_by_name(category_name)
+    return cat.pages.size > 0 if cat
+
+    false
   end
 
 
